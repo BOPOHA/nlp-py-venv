@@ -23,6 +23,7 @@ Requires:       python36
     %{coprbuilddir}%{venvname}/bin/pip install -r %{SOURCE0}
 
 %install
+    %{__mkdir} -p %{buildroot}%{coprbuilddir}
     %{__cp} -pr %{coprbuilddir}%{venvname} %{buildroot}%{coprbuilddir}%{venvname}
 
 %files
