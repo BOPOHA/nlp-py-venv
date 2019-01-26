@@ -1,0 +1,7 @@
+aiohttp==3.5.4
+click==7.0
+faker==1.0.1
+gunicorn==19.9.0
+spacy==2.0.18
+starlette==0.9.10
+uvicorn==0.3.25
