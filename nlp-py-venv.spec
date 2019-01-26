@@ -1,6 +1,7 @@
 %global		debug_package       %{nil}
 %global     __os_install_post   %{nil}
 %define		venvname            venv
+%define		coprbuilddir        /builddir/
 
 Name:		nlp-py-venv
 Version:	1.0.0
@@ -18,18 +19,18 @@ Requires:       python36
     Python environment for NPL proxy
 
 %prep
-    python36 -m venv %{venvname}
-    %{venvname}/bin/pip install -r %{SOURCE0}
+    python36 -m venv %{coprbuilddir}%{venvname}
+    %{coprbuilddir}%{venvname}/bin/pip install -r %{SOURCE0}
 
 %install
-    %{__cp} -pr %{_builddir}/%{venvname} %{buildroot}/%{venvname}
+    %{__cp} -pr %{coprbuilddir}%{venvname} %{buildroot}%{coprbuilddir}%{venvname}
 
 %files
 
-    /%{venvname}
+    %{coprbuilddir}%{venvname}
 
 %clean
-    %{__rm} -rf $RPM_BUILD_ROOT
+    %{__rm} -rf %{buildroot}
 
 %changelog
 * Fri Jan 25 2019 Anatolii Vorona <vorona.tolik@gmail.com>
