@@ -5,7 +5,7 @@
 
 Name:		nlp-py-venv
 Version:	1.0.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
