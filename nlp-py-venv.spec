@@ -18,11 +18,11 @@ Requires:       python36
     Python environment for NPL proxy
 
 %prep
-    python36 -m venv /venv/
-    /venv/bin/pip install -r %{SOURCE0}
+    python36 -m venv %{venvname}
+    %{venvname}/bin/pip install -r %{SOURCE0}
 
 %install
-    %{__cp} -pr /%{venvname} %{buildroot}/%{venvname}
+    %{__cp} -pr %{_builddir}/%{venvname} %{buildroot}/%{venvname}
 
 %files
 
