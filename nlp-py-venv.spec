@@ -4,8 +4,8 @@
 %define		coprbuilddir        /builddir/
 
 Name:		nlp-py-venv
-Version:	1.0.0
-Release:	2%{?dist}
+Version:	1.0.1
+Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
@@ -20,7 +20,7 @@ Requires:       python36
 
 %prep
     python36 -m venv %{coprbuilddir}%{venvname}
-    %{coprbuilddir}%{venvname}/bin/pip install -r %{SOURCE0}
+    %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: -r %{SOURCE0}
 
 %install
     %{__mkdir} -p %{buildroot}%{coprbuilddir}

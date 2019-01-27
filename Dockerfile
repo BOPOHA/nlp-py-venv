@@ -3,6 +3,7 @@ ENV LANG=en_US.utf8
 RUN yum install epel-release -y
 RUN yum install python36-devel gcc rpm-build -y
 RUN useradd -ms /bin/bash worker
+RUN mkdir /builddir/ && chown worker: /builddir
 USER worker
 RUN mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
 COPY nlp-py-venv.spec /home/worker/rpmbuild/SPECS/
