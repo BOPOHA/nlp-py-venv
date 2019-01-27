@@ -1,7 +1,7 @@
 FROM centos:centos7
 ENV LANG=en_US.utf8
 RUN yum install epel-release -y
-RUN yum install python36-devel gcc rpm-build -y
+RUN yum install python36-devel gcc gcc-c++ rpm-build -y
 RUN useradd -ms /bin/bash worker
 RUN mkdir /builddir/ && chown worker: /builddir
 USER worker

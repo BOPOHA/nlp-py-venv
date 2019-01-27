@@ -13,6 +13,7 @@ Source0:    requirements.txt
 
 BuildRequires:  python36-devel
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 Requires:       python36
 
 %description
