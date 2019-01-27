@@ -4,7 +4,7 @@
 %define		coprbuilddir        /builddir/
 
 Name:		nlp-py-venv
-Version:	1.0.1
+Version:	1.0.2
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -14,6 +14,7 @@ Source0:    requirements.txt
 BuildRequires:  python36-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  make
 Requires:       python36
 
 %description
@@ -22,6 +23,11 @@ Requires:       python36
 %prep
     python36 -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: -r %{SOURCE0}
+    %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
+
+    # just test to import spacy lib:
+    %{coprbuilddir}%{venvname}/bin/python -c "import spacy; nlp = spacy.load('en');"
+
 
 %install
     %{__mkdir} -p %{buildroot}%{coprbuilddir}
