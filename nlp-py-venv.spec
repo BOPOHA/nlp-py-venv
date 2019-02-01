@@ -2,26 +2,27 @@
 %global     __os_install_post   %{nil}
 %define		venvname            venv
 %define		coprbuilddir        /builddir/
+%define     pyversion           python37
 
 Name:		nlp-py-venv
-Version:	1.0.2
+Version:	1.0.3
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
 Source0:    requirements.txt
 
-BuildRequires:  python36-devel
+BuildRequires:  %{pyversion}-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-Requires:       python36
+Requires:       %{pyversion}
 
 %description
     Python environment for NPL proxy
 
 %prep
-    python36 -m venv %{coprbuilddir}%{venvname}
+    %{pyversion} -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
 
