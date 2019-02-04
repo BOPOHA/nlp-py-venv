@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.5
+Version:	1.0.6
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -21,6 +21,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  openblas-devel
+BuildRequires:  Cython
 Requires:       %{pyversion}
 Requires:       openblas-serial
 Requires:       openblas-serial64
@@ -29,7 +30,6 @@ Requires:       openblas-serial64
     Python environment for NPL proxy
 
 %prep
-    export INTERFACE64=1
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
