@@ -2,7 +2,11 @@
 %global     __os_install_post   %{nil}
 %define		venvname            venv
 %define		coprbuilddir        /builddir/
+%if 0%{?rhel}  == 7
 %define     pyversion           python37
+%else
+%define     pyversion           python3
+%endif
 
 Name:		nlp-py-venv
 Version:	1.0.3
