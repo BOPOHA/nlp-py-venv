@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.6
+Version:	1.0.7
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -20,20 +20,22 @@ BuildRequires:  %{pyversion}-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  openblas-devel
+BuildRequires:  openblas-threads64
 BuildRequires:  Cython
 Requires:       %{pyversion}
-Requires:       openblas-serial
-Requires:       openblas-serial64
+Requires:       openblas-threads64
 
 %description
     Python environment for NPL proxy
 
 %prep
+    export LD_PRELOAD=/usr/lib64/libopenblasp64.so.0
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
 
+    # just test to import numpy lib:
+    %{coprbuilddir}%{venvname}/bin/python -c "import numpy; numpy.show_config();"
     # just test to import spacy lib:
     %{coprbuilddir}%{venvname}/bin/python -c "import spacy; nlp = spacy.load('en');"
 
