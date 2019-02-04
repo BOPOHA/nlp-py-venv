@@ -30,7 +30,7 @@ Requires:       openblas-threads64
 
 %prep
     echo '[openblas]' > ~/.numpy-site.cfg
-    echo 'libraries = openblasp' > ~/.numpy-site.cfg
+    echo 'libraries = openblasp64' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
