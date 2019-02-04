@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.3
+Version:	1.0.4
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -20,6 +20,7 @@ BuildRequires:  %{pyversion}-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  openblas-devel
 Requires:       %{pyversion}
 
 %description
@@ -27,7 +28,7 @@ Requires:       %{pyversion}
 
 %prep
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
-    %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: -r %{SOURCE0}
+    %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
 
     # just test to import spacy lib:
