@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.8
+Version:	1.0.9
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -29,7 +29,8 @@ Requires:       openblas-threads64
     Python environment for NPL proxy
 
 %prep
-    export LD_PRELOAD=/usr/lib64/libopenblasp64.so
+    echo '[openblas]' > ~/.numpy-site.cfg
+    echo 'libraries = openblasp' > ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
