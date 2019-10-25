@@ -21,6 +21,8 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  openblas-devel
+BuildRequires:  lapack64-devel
+BuildRequires:  gcc-gfortran
 BuildRequires:  Cython
 Requires:       %{pyversion}
 Requires:       openblas-threads
