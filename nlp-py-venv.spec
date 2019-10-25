@@ -23,7 +23,7 @@ BuildRequires:  make
 BuildRequires:  openblas-devel
 BuildRequires:  lapack64-devel
 BuildRequires:  gcc-gfortran
-BuildRequires:  Cython
+BuildRequires:  python37-Cython
 Requires:       %{pyversion}
 Requires:       openblas-threads
 
