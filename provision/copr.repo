@@ -1,0 +1,10 @@
+[copr:copr.fedorainfracloud.org:vorona:corenlp]
+name=Copr repo for corenlp owned by vorona
+baseurl=https://copr-be.cloud.fedoraproject.org/results/vorona/corenlp/epel-7-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/vorona/corenlp/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
