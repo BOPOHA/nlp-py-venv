@@ -34,8 +34,8 @@ Requires:       openblas-threads
     echo '[openblas]' > ~/.numpy-site.cfg
     echo 'libraries = openblasp' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
-    %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check Cython==0.29.13
+    %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
     %{coprbuilddir}%{venvname}/bin/python -c "import nltk; nltk.download('punkt');"
