@@ -23,6 +23,7 @@ BuildRequires:  make
 BuildRequires:  openblas-devel
 BuildRequires:  lapack64-devel
 BuildRequires:  gcc-gfortran
+BuildRequires:  intel-mkl
 Requires:       %{pyversion}
 Requires:       openblas-threads
 
@@ -32,7 +33,13 @@ Requires:       openblas-threads
 %prep
     echo '[openblas]' > ~/.numpy-site.cfg
     echo 'libraries = openblasp' >> ~/.numpy-site.cfg
+    echo '[mkl]' >> ~/.numpy-site.cfg
+    echo 'library_dirs = /opt/intel/mkl/lib/intel64' >> ~/.numpy-site.cfg
+    echo 'include_dirs = /opt/intel/mkl/include' >> ~/.numpy-site.cfg
+    echo 'mkl_libs = mkl_rt' >> ~/.numpy-site.cfg
+    echo 'lapack_libs =' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
+    source /opt/intel/bin/compilervars.sh intel64
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
