@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.14
+Version:	1.0.15
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
@@ -36,7 +36,7 @@ Requires:       openblas-threads
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
-    %{coprbuilddir}%{venvname}/bin/python -c "import nltk; nltk.download('punkt');"
+    %{coprbuilddir}%{venvname}/bin/python -c "import nltk; nltk.download('punkt', download_dir='%{coprbuilddir}%{venvname}/nltk_data');"
 
     # just test to import numpy lib:
     %{coprbuilddir}%{venvname}/bin/python -c "import numpy; numpy.show_config();"
