@@ -10,7 +10,7 @@
 
 Name:		nlp-py-venv
 Version:	1.0.15
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
@@ -23,7 +23,7 @@ BuildRequires:  make
 BuildRequires:  openblas-devel
 BuildRequires:  lapack64-devel
 BuildRequires:  gcc-gfortran
-BuildRequires:  intel-mkl
+BuildRequires:  intel-mkl-64bit
 Requires:       %{pyversion}
 Requires:       openblas-threads
 
@@ -39,7 +39,9 @@ Requires:       openblas-threads
     echo 'mkl_libs = mkl_rt' >> ~/.numpy-site.cfg
     echo 'lapack_libs =' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
-    source /opt/intel/bin/compilervars.sh intel64
+    find /opt/intel/mkl/lib/intel64
+    find /opt/intel/mkl/include
+    # source /opt/intel/bin/compilervars.sh intel64
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
