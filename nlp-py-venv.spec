@@ -1,5 +1,6 @@
 %global		debug_package       %{nil}
 %global     __os_install_post   %{nil}
+%global     __python3           python37
 %define		venvname            venv
 %define		coprbuilddir        /builddir/
 %if 0%{?rhel}  == 7
@@ -10,7 +11,7 @@
 
 Name:		nlp-py-venv
 Version:	1.0.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
