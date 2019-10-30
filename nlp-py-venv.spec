@@ -9,7 +9,7 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.17
+Version:	1.0.18
 Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
