@@ -11,7 +11,7 @@
 
 Name:		nlp-py-venv
 Version:	1.0.15
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
@@ -61,7 +61,7 @@ Requires:       openblas-threads
     %{__cp} -pr %{coprbuilddir}%{venvname} %{buildroot}%{coprbuilddir}%{venvname}
 
     %{__mkdir} -p  %{buildroot}%{mkl_lib_dir}
-    %{__cp}    -pr %{mkl_lib_dir}*.so %{buildroot}%{mkl_lib_dir}
+    %{__cp}    -pr %{mkl_lib_dir}{libmkl_avx512.so,libmkl_core.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_rt.so} %{buildroot}%{mkl_lib_dir}
 
     %{__mkdir} -p  %{buildroot}/etc/ld.so.conf.d/
     echo %{mkl_lib_dir} > %{buildroot}/etc/ld.so.conf.d/mkl-intel64.conf
