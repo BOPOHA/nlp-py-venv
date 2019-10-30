@@ -17,6 +17,7 @@ Summary:	Python environment for NLP proxy
 License:	MIT
 Source0:    requirements.txt
 
+AutoReqProv: no
 BuildRequires:  %{pyversion}-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
