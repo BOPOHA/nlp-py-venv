@@ -21,9 +21,8 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  openblas-devel
-# lapack64-devel and gcc-gfortran need for building Cython from requirements.txt
-BuildRequires:  lapack64-devel
-BuildRequires:  gcc-gfortran
+
+BuildRequires:  %{pyversion}-Cython
 
 Requires:       %{pyversion}
 Requires:       openblas-threads
