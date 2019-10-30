@@ -37,8 +37,8 @@ Requires:       openblas-threads
     echo '[mkl]' >> ~/.numpy-site.cfg
     echo 'library_dirs = %{mkl_lib_dir}' >> ~/.numpy-site.cfg
     echo 'include_dirs = /opt/intel/mkl/include/' >> ~/.numpy-site.cfg
-    echo 'mkl_libs = mkl_rt, mkl_def, mkl_intel_lp64, mkl_core, mkl_mc3' >> ~/.numpy-site.cfg
-    echo 'lapack_libs = mkl_def, mkl_intel_lp64, mkl_core, mkl_mc3' >> ~/.numpy-site.cfg
+    echo 'mkl_libs = mkl_rt, mkl_def, mkl_intel_lp64, mkl_core' >> ~/.numpy-site.cfg
+    echo 'lapack_libs = mkl_def, mkl_intel_lp64, mkl_core' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
     find /opt/intel/mkl/lib/intel64/
     find /opt/intel/mkl/include/
