@@ -2,7 +2,6 @@
 %global     __os_install_post   %{nil}
 %define		venvname            venv
 %define		coprbuilddir        /builddir/
-%define		mkl_lib_dir         /opt/intel/mkl/lib/intel64/
 %if 0%{?rhel}  == 7
 %define     pyversion           python37
 %else
@@ -10,8 +9,8 @@
 %endif
 
 Name:		nlp-py-venv
-Version:	1.0.15
-Release:	5%{?dist}
+Version:	1.0.17
+Release:	1%{?dist}
 Summary:	Python environment for NLP proxy
 
 License:	MIT
@@ -22,9 +21,10 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  openblas-devel
+# lapack64-devel and gcc-gfortran need for building Cython from requirements.txt
 BuildRequires:  lapack64-devel
 BuildRequires:  gcc-gfortran
-BuildRequires:  intel-mkl-64bit
+
 Requires:       %{pyversion}
 Requires:       openblas-threads
 
@@ -32,19 +32,9 @@ Requires:       openblas-threads
     Python environment for NPL proxy
 
 %prep
-    echo '[openblas]' > ~/.numpy-site.cfg
-    echo 'libraries = openblasp' >> ~/.numpy-site.cfg
-    echo '[mkl]' >> ~/.numpy-site.cfg
-    echo 'library_dirs = %{mkl_lib_dir}' >> ~/.numpy-site.cfg
-    echo 'include_dirs = /opt/intel/mkl/include/' >> ~/.numpy-site.cfg
-    echo 'mkl_libs = mkl_rt' >> ~/.numpy-site.cfg
-    echo 'lapack_libs = mkl_rt' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
-    find /opt/intel/mkl/lib/intel64/
-    find /opt/intel/mkl/include/
-    source /opt/intel/bin/compilervars.sh intel64
     %{coprbuilddir}%{venvname}/bin/pip install \
-        --no-binary :all: --disable-pip-version-check \
+        --disable-pip-version-check \
         -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
@@ -60,35 +50,16 @@ Requires:       openblas-threads
     %{__mkdir} -p %{buildroot}%{coprbuilddir}
     %{__cp} -pr %{coprbuilddir}%{venvname} %{buildroot}%{coprbuilddir}%{venvname}
 
-    %{__mkdir} -p  %{buildroot}%{mkl_lib_dir}
-    %{__cp}    -pr %{mkl_lib_dir}{libmkl_avx512.so,libmkl_core.so,libmkl_intel_lp64.so,libmkl_intel_thread.so,libmkl_rt.so} %{buildroot}%{mkl_lib_dir}
-
-    %{__mkdir} -p  %{buildroot}/etc/ld.so.conf.d/
-    echo %{mkl_lib_dir} > %{buildroot}/etc/ld.so.conf.d/mkl-intel64.conf
-
-
 %files
 
     %{coprbuilddir}%{venvname}
-    %{mkl_lib_dir}*.so
-    /etc/ld.so.conf.d/mkl-intel64.conf
-
 
 %clean
     %{__rm} -rf %{buildroot}
 
-
-%post
-    ldconfig
-
-
-%postun
-    ldconfig
-
-
 %changelog
 * Fri Oct 25 2019 Anatolii Vorona <vorona.tolik@gmail.com>
-- added intel-mkl-64bit libs
+- disable building with no-binary :all:
 - update nlp-py-venv with nlc things
 - python 3.7.2 -> 3.7.4
 
