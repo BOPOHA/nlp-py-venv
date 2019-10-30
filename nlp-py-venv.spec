@@ -2,6 +2,7 @@
 %global     __os_install_post   %{nil}
 %define		venvname            venv
 %define		coprbuilddir        /builddir/
+%define		mkl_lib_dir         /opt/nlp-py-env-mkl/lib64/
 %if 0%{?rhel}  == 7
 %define     pyversion           python37
 %else
@@ -31,16 +32,19 @@ Requires:       openblas-threads
     Python environment for NPL proxy
 
 %prep
+    mkdir -p %{mkl_lib_dir}
+    cp %{mkl_lib_dir}* /opt/nlp-py-env-mkl/lib64/
     echo '[openblas]' > ~/.numpy-site.cfg
     echo 'libraries = openblasp' >> ~/.numpy-site.cfg
     echo '[mkl]' >> ~/.numpy-site.cfg
-    echo 'library_dirs = /opt/intel/mkl/lib/intel64' >> ~/.numpy-site.cfg
-    echo 'include_dirs = /opt/intel/mkl/include' >> ~/.numpy-site.cfg
-    echo 'mkl_libs = mkl_rt' >> ~/.numpy-site.cfg
-    echo 'lapack_libs =' >> ~/.numpy-site.cfg
+    echo 'library_dirs = /opt/nlp-py-env-mkl/lib64/' >> ~/.numpy-site.cfg
+    echo 'include_dirs = /opt/intel/mkl/include/' >> ~/.numpy-site.cfg
+    echo 'mkl_libs = mkl_rt, mkl_def, mkl_intel_lp64, mkl_gnu_thread, mkl_core, mkl_mc3' >> ~/.numpy-site.cfg
+    echo 'lapack_libs = mkl_def, mkl_intel_lp64, mkl_gnu_thread, mkl_core, mkl_mc3' >> ~/.numpy-site.cfg
     %{pyversion} -m venv %{coprbuilddir}%{venvname}
-    find /opt/intel/mkl/lib/intel64
-    find /opt/intel/mkl/include
+    find /opt/intel/mkl/lib/intel64/
+    find /opt/intel/mkl/include/
+    find /opt/nlp-py-env-mkl/lib64/
     # source /opt/intel/bin/compilervars.sh intel64
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
@@ -57,15 +61,20 @@ Requires:       openblas-threads
     %{__mkdir} -p %{buildroot}%{coprbuilddir}
     %{__cp} -pr %{coprbuilddir}%{venvname} %{buildroot}%{coprbuilddir}%{venvname}
 
+    %{__mkdir} -p %{buildroot}%%{mkl_lib_dir}
+    %{__cp} -pr %{mkl_lib_dir} %{buildroot}%{mkl_lib_dir}
+
 %files
 
     %{coprbuilddir}%{venvname}
+    %{mkl_lib_dir}
 
 %clean
     %{__rm} -rf %{buildroot}
 
 %changelog
 * Fri Oct 25 2019 Anatolii Vorona <vorona.tolik@gmail.com>
+- added intel-mkl-64bit libs
 - update nlp-py-venv with nlc things
 - python 3.7.2 -> 3.7.4
 
