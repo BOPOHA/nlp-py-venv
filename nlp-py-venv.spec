@@ -43,6 +43,7 @@ Requires:       openblas-threads
     find /opt/intel/mkl/lib/intel64/
     find /opt/intel/mkl/include/
     # source /opt/intel/bin/compilervars.sh intel64
+    export LD_LIBRARY_PATH=%{mkl_lib_dir}:$LD_LIBRARY_PATH
     %{coprbuilddir}%{venvname}/bin/pip install --no-binary :all: --disable-pip-version-check -r %{SOURCE0}
     %{coprbuilddir}%{venvname}/bin/python  -m spacy download en
     # download nltk things:
@@ -60,14 +61,23 @@ Requires:       openblas-threads
 
     %{__mkdir} -p  %{buildroot}%{mkl_lib_dir}
     %{__cp}    -pr %{mkl_lib_dir}*.so %{buildroot}%{mkl_lib_dir}
+    %{__mkdir} -p  %{buildroot}/etc/ld.so.conf.d/
+    echo %{mkl_lib_dir} > %{buildroot}/etc/ld.so.conf.d/mkl-intel64.conf
 
 %files
 
     %{coprbuilddir}%{venvname}
     %{mkl_lib_dir}*.so
+    /etc/ld.so.conf.d/mkl-intel64.conf
 
 %clean
     %{__rm} -rf %{buildroot}
+
+%post
+    ldconfig
+
+%postun
+    ldconfig
 
 %changelog
 * Fri Oct 25 2019 Anatolii Vorona <vorona.tolik@gmail.com>
