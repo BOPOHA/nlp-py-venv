@@ -8,3 +8,5 @@ Python virtual environment for NLP proxy
     $ ls /tmp/*rpm
     /tmp/nlp-py-venv-1.0.0-1.el7.src.rpm
     /tmp/nlp-py-venv-1.0.0-1.el7.x86_64.rpm
+
+ for LIB in `find   /usr/lib64/ -type f -name "libopenblas*.so"`; do echo $LIB; LD_PRELOAD=$LIB /builddir/venv/bin/python numpy-benchmark.py ; done

@@ -45,7 +45,8 @@ Requires:       openblas-threads
     %{coprbuilddir}%{venvname}/bin/python -c "import numpy; numpy.show_config();"
     # just test to import spacy lib:
     %{coprbuilddir}%{venvname}/bin/python -c "import spacy; nlp = spacy.load('en');"
-
+    # just test nltk's 'punkt' resource
+    %{coprbuilddir}%{venvname}/bin/python -c 'from nltk import sent_tokenize as st; st("This is a sentence. This is another.")'
 
 %install
     %{__mkdir} -p %{buildroot}%{coprbuilddir}
