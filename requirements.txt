@@ -59,7 +59,7 @@ thinc==6.12.1             # via spacy
 toolz==0.9.0              # via cytoolz
 tqdm==4.29.1              # via thinc
 ujson==1.35               # via spacy
-urllib3==1.24.2           # via botocore, requests, sentry-sdk
+urllib3==1.26.5           # via botocore, requests, sentry-sdk
 uvicorn==0.9.0
 uvloop==0.12.0            # via uvicorn
 websockets==8.0.2         # via uvicorn
