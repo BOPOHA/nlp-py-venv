@@ -36,7 +36,7 @@ msgpack==0.5.6
 multidict==4.5.2          # via aiohttp, yarl
 murmurhash==1.0.1         # via spacy, thinc
 nltk==3.4.5
-numpy==1.16.4
+numpy==1.22.0
 pamqp==2.3.0              # via aiormq
 pandas==0.25.1
 plac==0.9.6               # via spacy, thinc
