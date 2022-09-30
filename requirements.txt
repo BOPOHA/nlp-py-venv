@@ -29,7 +29,7 @@ h11==0.8.1                # via uvicorn
 httptools==0.0.13         # via uvicorn
 idna==2.8                 # via requests, yarl
 jmespath==0.9.4           # via boto3, botocore
-joblib==0.14.0            # via scikit-learn
+joblib==1.2.0            # via scikit-learn
 msgpack-numpy==0.4.3.2    # via thinc
 msgpack-python==0.5.6
 msgpack==0.5.6
