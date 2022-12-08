@@ -14,7 +14,7 @@ attrs==18.2.0             # via aiohttp
 boto3==1.10.2             # via smart-open
 boto==2.49.0              # via smart-open
 botocore==1.13.2          # via boto3, s3transfer
-certifi==2018.11.29       # via requests, sentry-sdk
+certifi==2022.12.7       # via requests, sentry-sdk
 chardet==3.0.4            # via aiohttp, requests
 click==7.0
 cymem==2.0.2              # via preshed, spacy, thinc
